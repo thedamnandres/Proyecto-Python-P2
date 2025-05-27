@@ -9,22 +9,6 @@
     <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <style>
-        .sidenav.sidenav-fixed {
-            width: 250px;
-        }
-
-        .main-content {
-            margin-left: 300px;
-            padding: 2rem;
-        }
-
-        @media (max-width: 992px) {
-            .main-content {
-                margin-left: 0;
-            }
-        }
-    </style>
 </head>
 
 <body>
@@ -32,16 +16,24 @@
     <ul id="slide-out" class="sidenav sidenav-fixed">
         <li>
             <div class="user-view">
-                <div class="background blue"></div>
-                <div style="display: flex; align-items: center; gap: 8px;">
+                <div class="background blue-gradient"></div>
+                <div class="sidebar-title">
                     <i class="material-icons white-text">table_chart</i>
                     <span class="white-text name" style="font-size: 1.2rem;">Proyecto integrador</span>
                 </div>
             </div>
         </li>
-        <li><a href="{{ url_for('main.index') }}"><i class="material-icons">home</i>Inicio</a></li>
-        <li><a href="{{ url_for('catequistas.listar') }}"><i class="material-icons">people</i>Catequistas</a></li>
-        <li><a href="{{ url_for('arquideosis.listar') }}"><i class="material-icons">domain</i>Arquidiócesis</a></li>
+        <li><a href="{{ url_for('main.index') }}" class="{% if request.endpoint == 'main.index' %}active{% endif %}"><i
+                    class="material-icons">home</i>Inicio</a></li>
+        <li><a href="{{ url_for('catequistas.listar') }}"
+                class="{% if request.endpoint == 'catequistas.listar' %}active{% endif %}"><i
+                    class="material-icons">people</i>Catequistas</a></li>
+        <li><a href="{{ url_for('arquideosis.listar') }}"
+                class="{% if request.endpoint == 'arquideosis.listar' %}active{% endif %}"><i
+                    class="material-icons">church</i>Arquidiócesis</a></li>
+        <li><a href="{{ url_for('parroquia.listar') }}"
+                class="{% if request.endpoint == 'parroquia.listar' %}active{% endif %}"><i
+                    class="material-icons">location_city</i>Parroquias</a></li>
 
         <!-- Agrega más enlaces aquí para otras entidades -->
     </ul>

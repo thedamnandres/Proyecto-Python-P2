@@ -10,6 +10,10 @@ def create_app():
     
     from .controllers.arquideosis_controller import arquideosis_bp
     app.register_blueprint(arquideosis_bp)
+    
+    from .controllers.parroquias_controller import parroquia_bp
+    app.register_blueprint(parroquia_bp)
+    
 
     from .routes import main_routes
     app.register_blueprint(main_routes)
