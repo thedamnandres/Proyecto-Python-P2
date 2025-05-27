@@ -8,11 +8,11 @@
     <form method="POST" class="col s12">
         <div class="input-field">
             <span class="custom-label">Nombre</span>
-            <input name="nombre" required>
+            <input name="nombre" required value="{{ arquideosis.Nombre if arquideosis else '' }}">
         </div>
         <div class="input-field">
             <span class="custom-label">Región</span>
-            <input name="region" required>
+            <input name="region" required value="{{ arquideosis.Region if arquideosis else '' }}">
         </div>
         <div style="display: flex; gap: 10px;">
             <button type="submit" class="btn blue">Guardar</button>

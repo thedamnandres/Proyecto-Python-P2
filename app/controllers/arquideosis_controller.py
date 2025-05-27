@@ -25,18 +25,27 @@ def nuevo():
     return render_template('arquideosis/form.html')
 
 
-@arquideosis_bp.route('/arquideosis/editar/<int:id>', methods=['POST'])
+@arquideosis_bp.route('/arquideosis/editar/<int:id>', methods=['GET', 'POST'])
 def editar(id):
-    try:
-        modelo.actualizar(
-            id,
-            request.form['nombre'],
-            request.form['region']
-        )
-        flash('Arquidiócesis actualizada exitosamente!', 'success')
-    except Exception as e:
-        flash(f'Error al actualizar: {e}', 'danger')
-    return redirect(url_for('arquideosis.listar'))
+    if request.method == 'POST':
+        try:
+            modelo.actualizar(
+                id,
+                request.form['nombre'],
+                request.form['region']
+            )
+            flash('Arquidiócesis actualizada exitosamente!', 'success')
+        except Exception as e:
+            flash(f'Error al actualizar: {e}', 'danger')
+        return redirect(url_for('arquideosis.listar'))
+    else:
+        # Obtener datos actuales para mostrar en el formulario
+        datos = next((a for a in modelo.listar() if a['Arquideosis_Id'] == id), None)
+        if not datos:
+            flash('Arquidiócesis no encontrada', 'danger')
+            return redirect(url_for('arquideosis.listar'))
+        return render_template('arquideosis/form.html', arquideosis=datos)
+
 
 @arquideosis_bp.route('/arquideosis/eliminar/<int:id>', methods=['POST'])
 def eliminar(id):

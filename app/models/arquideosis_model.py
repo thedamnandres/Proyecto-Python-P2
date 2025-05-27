@@ -17,7 +17,11 @@ class ArquideosisModel:
     def listar(self):
         cursor = self.conexion.cursor()
         cursor.execute("EXEC dbo.sp_listarArquideosis")
-        return cursor.fetchall()
+        columns = [column[0] for column in cursor.description]
+        results = []
+        for row in cursor.fetchall():
+            results.append(dict(zip(columns, row)))
+        return results
 
     def insertar(self, nombre, region):
         cursor = self.conexion.cursor()
