@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Nueva Arquidiócesis{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h3 class="center-align">Nueva Arquidiócesis</h3>
+    <form method="POST" class="col s12">
+        <div class="input-field">
+            <span class="custom-label">Nombre</span>
+            <input name="nombre" required value="{{ arquideosis.Nombre if arquideosis else '' }}">
+        </div>
+        <div class="input-field">
+            <span class="custom-label">Región</span>
+            <input name="region" required value="{{ arquideosis.Region if arquideosis else '' }}">
+        </div>
+        <div style="display: flex; gap: 10px;">
+            <button type="submit" class="btn blue">Guardar</button>
+            <a href="{{ url_for('arquideosis.listar') }}" class="btn grey lighten-1 black-text">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

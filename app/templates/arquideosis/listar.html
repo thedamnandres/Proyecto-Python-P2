@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Arquidiócesis{% endblock %}
+
+{% block content %}
+<h3 class="center-align">Arquidiócesis</h3>
+
+<div class="right-align" style="margin-bottom: 20px;">
+    <a href="{{ url_for('arquideosis.nuevo') }}" class="btn blue">
+        <i class="material-icons left">add</i>Nueva Arquidiócesis
+    </a>
+</div>
+
+<table class="striped highlight responsive-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Región</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for a in arquideosis %}
+        <tr>
+            <td>{{ a['Arquideosis_Id'] }}</td>
+            <td>{{ a['Nombre'] }}</td>
+            <td>{{ a['Region'] }}</td>
+            <td>
+                <a href="{{ url_for('arquideosis.editar', id=a['Arquideosis_Id']) }}" class="btn-small green">
+                    <i class="material-icons left">edit</i>
+                </a>
+                <form method="POST" action="{{ url_for('arquideosis.eliminar', id=a['Arquideosis_Id']) }}"
+                    style="display:inline;">
+                    <button type="submit" class="btn-small red"
+                        onclick="return confirm('¿Seguro que deseas eliminar?');">
+                        <i class="material-icons left">delete</i>
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

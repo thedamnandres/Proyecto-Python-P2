@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Proyecto Catequistas{% endblock %}</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        .main-content {
+            margin-left: 300px;
+            padding: 2rem;
+        }
+        @media (max-width: 992px) {
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidenav -->
+    <ul id="slide-out" class="sidenav sidenav-fixed">
+        <li>
+            <div class="user-view">
+                <div class="background blue"></div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <i class="material-icons white-text">table_chart</i>
+                    <span class="white-text name" style="font-size: 1.2rem;">Entidades Proyecto integrador</span>
+                </div>
+            </div>
+        </li>
+        <li><a href="{{ url_for('main.index') }}"><i class="material-icons">home</i>Inicio</a></li>
+        <li><a href="{{ url_for('catequistas.listar') }}"><i class="material-icons">people</i>Catequistas</a></li>
+        <li><a href="{{ url_for('arquideosis.listar') }}"><i class="material-icons">domain</i>Arquidiócesis</a></li>
+
+        <!-- Agrega más enlaces aquí para otras entidades -->
+    </ul>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.sidenav');
+            M.Sidenav.init(elems);
+            var modals = document.querySelectorAll('.modal');
+            if (modals.length) {
+                M.Modal.init(modals);
+            }
+        });
+    </script>
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>
