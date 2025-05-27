@@ -19,7 +19,7 @@ def nuevo():
             )
             flash('Arquidiócesis agregada exitosamente!', 'success')
         except Exception as e:
-            print(f"Error al agregar: {e}")  # <- Para ver el error en la consola
+            print(f"Error al agregar: {e}")  # Error en la consola
             flash(f'Error al agregar: {e}', 'danger')
         return redirect(url_for('arquideosis.listar'))
     return render_template('arquideosis/form.html')
