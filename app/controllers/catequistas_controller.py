@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
-from app.models.catequistas_model import CatequistasModel
+from app.models.catequistas_model import CatequistaModel
 
 catequistas_bp = Blueprint('catequistas', __name__)
-modelo = CatequistasModel()
+modelo = CatequistaModel()
 
 @catequistas_bp.route('/catequistas')
 def listar():

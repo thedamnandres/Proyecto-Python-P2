@@ -1,7 +1,7 @@
 import pyodbc
 import json
 
-class CatequistasModel:
+class CatequistaModel:
     def __init__(self):
         with open('config.json', 'r') as f:
             config = json.load(f)
@@ -17,18 +17,26 @@ class CatequistasModel:
     def listar(self):
         cursor = self.conexion.cursor()
         cursor.execute("EXEC dbo.sp_listarCatequistas")
-        return cursor.fetchall()
+        columns = [column[0] for column in cursor.description]
+        resultados = []
+        for row in cursor.fetchall():
+            resultados.append(dict(zip(columns, row)))
+        return resultados
 
     def insertar(self, nombres, apellidos, rol, telefono, correo, direccion):
         cursor = self.conexion.cursor()
-        cursor.execute("EXEC dbo.sp_insertarCatequista ?,?,?,?,?,?",
-                       nombres, apellidos, rol, telefono, correo, direccion)
+        cursor.execute(
+            "EXEC dbo.sp_insertarCatequista ?,?,?,?,?,?",
+            nombres, apellidos, rol, telefono, correo, direccion
+        )
         self.conexion.commit()
 
     def actualizar(self, catequista_id, telefono, correo):
         cursor = self.conexion.cursor()
-        cursor.execute("EXEC dbo.sp_actualizarCatequista ?,?,?",
-                       catequista_id, telefono, correo)
+        cursor.execute(
+            "EXEC dbo.sp_actualizarCatequista ?,?,?",
+            catequista_id, telefono, correo
+        )
         self.conexion.commit()
 
     def eliminar(self, catequista_id):
