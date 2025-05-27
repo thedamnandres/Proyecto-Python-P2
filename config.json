@@ -1,0 +1,7 @@
+{
+  "server": "localhost,1433",
+  "database": "ProyectoIntegradorG4",
+  "username": "pythonconsultor",
+  "password": "Alone2001",
+  "driver": "{ODBC Driver 17 for SQL Server}"
+}

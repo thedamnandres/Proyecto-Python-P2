@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Catequistas</title>
+    <!-- Materialize CSS CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <!-- Google Icons CDN -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body class="container">
+    <h3 class="center-align">Catequistas</h3>
+    <div class="right-align">
+        <a href="{{ url_for('catequistas.nuevo') }}" class="btn waves-effect waves-light blue">
+            <i class="material-icons left">person_add</i>Nuevo Catequista
+        </a>
+    </div>
+    <table class="striped highlight responsive-table">
+        <thead>
+            <tr>
+                <th>ID</th><th>Nombres</th><th>Apellidos</th><th>Rol</th><th>Teléfono</th><th>Correo</th><th>Dirección</th><th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for c in catequistas %}
+        <tr>
+            <td>{{ c.Catequista_Id }}</td>
+            <td>{{ c.Nombres }}</td>
+            <td>{{ c.Apellidos }}</td>
+            <td>{{ c.Rol }}</td>
+            <td>{{ c.Telefono }}</td>
+            <td>{{ c.Correo }}</td>
+            <td>{{ c.Direccion }}</td>
+            <td>
+                <!-- Botón para abrir el modal de editar -->
+                <a class="btn-small green modal-trigger" href="#modal{{ c.Catequista_Id }}">
+                    <i class="material-icons left">edit</i>Editar
+                </a>
+                <!-- Botón para eliminar -->
+                <form method="POST" action="{{ url_for('catequistas.eliminar', id=c.Catequista_Id) }}" style="display:inline;">
+                    <button type="submit" class="btn-small red" onclick="return confirm('¿Seguro que deseas eliminar este catequista?');">
+                        <i class="material-icons left">delete</i>Eliminar
+                    </button>
+                </form>
+                <!-- Modal de edición -->
+                <div id="modal{{ c.Catequista_Id }}" class="modal">
+                    <div class="modal-content">
+                        <h5>Editar Catequista</h5>
+                        <form method="POST" action="{{ url_for('catequistas.editar', id=c.Catequista_Id) }}">
+                            <div class="input-field">
+                                <input name="telefono" id="telefono{{ c.Catequista_Id }}" value="{{ c.Telefono }}" required>
+                                <label for="telefono{{ c.Catequista_Id }}" class="active">Teléfono</label>
+                            </div>
+                            <div class="input-field">
+                                <input name="correo" id="correo{{ c.Catequista_Id }}" value="{{ c.Correo }}" required>
+                                <label for="correo{{ c.Catequista_Id }}" class="active">Correo</label>
+                            </div>
+                            <div class="modal-footer" style="padding:0; border:none;">
+                                <button type="submit" class="modal-close btn blue">
+                                    Editar
+                                    <i class="material-icons right">send</i>
+                                </button>
+                                <a href="#!" class="modal-close btn-flat">
+                                    Cancelar
+                                    <i class="material-icons right">cancel</i>
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <!-- Materialize JS CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.modal');
+            M.Modal.init(elems);
+        });
+    </script>
+</body>
+</html>

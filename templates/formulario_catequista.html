@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Catequistas</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse; /* Mejora la apariencia de las tablas */
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px 12px; /* Espaciado dentro de las celdas */
+            text-align: left; /* Alineación del texto */
+        }
+        th {
+            background-color: #f2f2f2; /* Color de fondo para las cabeceras */
+        }
+        a {
+            text-decoration: none; /* Eliminar subrayado en los enlaces */
+            color: #007bff; /* Color para los enlaces */
+        }
+        a:hover {
+            color: #0056b3; /* Color cuando el enlace es hover */
+        }
+    </style>
+</head>
+<body>
+    <h1>Catequistas</h1>
+    <a href="{{ url_for('catequistas.nuevo') }}">Nuevo Catequista</a>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Rol</th>
+                <th>Teléfono</th>
+                <th>Correo</th>
+                <th>Dirección</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for c in catequistas %}
+            <tr>
+                <td>{{ c.Catequista_Id }}</td>
+                <td>{{ c.Nombres }}</td>
+                <td>{{ c.Apellidos }}</td>
+                <td>{{ c.Rol }}</td>
+                <td>{{ c.Telefono }}</td>
+                <td>{{ c.Correo }}</td>
+                <td>{{ c.Direccion }}</td>
+                <td>
+                    <form method="POST" action="{{ url_for('catequistas.editar', id=c.Catequista_Id) }}">
+                        <input name="telefono" placeholder="Nuevo teléfono" required>
+                        <input name="correo" placeholder="Nuevo correo" required>
+                        <button type="submit">Actualizar</button>
+                    </form>
+                    <form method="POST" action="{{ url_for('catequistas.eliminar', id=c.Catequista_Id) }}">
+                        <button type="submit">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

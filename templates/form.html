@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Nuevo Catequista</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body class="container">
+    <h3 class="center-align">Nuevo Catequista</h3>
+    <form method="POST" class="col s12">
+        <div class="input-field">
+            <span class="custom-label">Nombres</span>
+            <input name="nombres" id="nombres" required>
+        </div>
+        <div class="input-field">
+            <span class="custom-label">Apellidos</span>
+            <input name="apellidos" id="apellidos" required>
+        </div>
+        <div class="input-field">
+            <span class="custom-label">Rol</span>
+            <input name="rol" id="rol" required>
+        </div>
+        <div class="input-field">
+            <span class="custom-label">Teléfono</span>
+            <input name="telefono" id="telefono" required>
+        </div>
+        <div class="input-field">
+            <span class="custom-label">Correo</span>
+            <input name="correo" id="correo" required>
+        </div>
+        <div class="input-field">
+            <span class="custom-label">Dirección</span>
+            <input name="direccion" id="direccion" required>
+        </div>
+        <div style="display: flex; gap: 10px;">
+            <button type="submit" class="btn waves-effect waves-light blue">Guardar</button>
+            <a href="{{ url_for('catequistas.listar') }}" class="btn grey lighten-1 black-text">Cancelar</a>
+        </div>
+    </form>
+    <style>
+        .custom-label {
+            color: #757575;
+            font-size: 0.95rem;
+            margin-bottom: 0.2rem;
+            display: block;
+            font-weight: 500;
+        }
+
+        .input-field input {
+            margin-bottom: 1.2rem;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+
+</html>
