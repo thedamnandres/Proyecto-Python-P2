@@ -1,10 +1,185 @@
 {% extends "base.html" %}
 
-{% block title %}Proyecto Catequistas{% endblock %}
+{% block title %}Inicio | Proyecto Catequistas{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h3 class="center-align">Bienvenido al Proyecto Integrador</h3>
-    <p class="center-align">Selecciona una entidad desde el menú lateral para comenzar.</p>
+
+<div class="hero">
+    <h1>GRUPO 4</h1>
+    <h5>PROYECTO INTEGRADOR - Gestión Parroquial y Catequistas</h5>
+    <a href="#main-section" id="scrollBtn" class="btn-large waves-effect waves-light teal darken-3" style="margin-top: 30px;">Explorar</a>
+
 </div>
+
+<div id="main-section" class="container section-content">
+    <h3 class="center-align">Bienvenido al Proyecto Integrador "Gestión Parroquial y Catequistas"</h3>
+    <p class="center-align">Este sistema permite administrar de forma eficiente los datos relacionados con catequistas, parroquias, personas, niveles de sacramentos, certificados y más.</p>
+
+    <div class="row center-align">
+    
+        <div class="col s12 m6 l4">
+            <div class="card teal lighten-4">
+                <div class="card-content">
+                    <span class="card-title">Catequistas</span>
+                    <p>Gestiona los datos de catequistas, sus roles, contactos y asignaciones.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12 m6 l4">
+            <div class="card orange lighten-4">
+                <div class="card-content">
+                    <span class="card-title">Parroquias</span>
+                    <p>Registra y administra parroquias, su arquidiócesis y sus párrocos responsables.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12 m6 l4">
+            <div class="card purple lighten-4">
+                <div class="card-content">
+                    <span class="card-title">Personas</span>
+                    <p>Administra los datos de personas registradas, su información familiar y sacramental.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12 m6 l4">
+            <div class="card blue lighten-4">
+                <div class="card-content">
+                    <span class="card-title">Sacramentos</span>
+                    <p>Consulta y administra los sacramentos ofrecidos en cada nivel parroquial.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12 m6 l4">
+            <div class="card green lighten-4">
+                <div class="card-content">
+                    <span class="card-title">Inscripciones</span>
+                    <p>Controla las inscripciones de personas a niveles, fechas y estados de pago.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12 m6 l4">
+            <div class="card red lighten-4">
+                <div class="card-content">
+                    <span class="card-title">Certificados</span>
+                    <p>Emite y consulta certificados emitidos por los niveles completados.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12 m6 l4">
+            <div class="card yellow lighten-4">
+                <div class="card-content">
+                    <span class="card-title">Libros</span>
+                    <p>Registra los libros utilizados para almacenar información sacramental.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12 m6 l4">
+            <div class="card pink lighten-4">
+                <div class="card-content">
+                    <span class="card-title">Niveles</span>
+                    <p>Define los niveles de formación catequética y su estructura.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12 m6 l4">
+            <div class="card brown lighten-4">
+                <div class="card-content">
+                    <span class="card-title">Grupos</span>
+                    <p>Administra los grupos de catequistas y catequizandos asignados a cada nivel.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12 m6 l4">
+            <div class="card cyan lighten-4">
+                <div class="card-content">
+                    <span class="card-title">Catequizandos</span>
+                    <p>Gestiona a los niños, jóvenes o adultos que reciben la formación.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12 m6 l4">
+            <div class="card lime lighten-4">
+                <div class="card-content">
+                    <span class="card-title">Imparte</span>
+                    <p>Registra qué catequistas imparten cada nivel o grupo dentro de una parroquia.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Animación de scroll
+document.addEventListener('DOMContentLoaded', function () {
+    const section = document.querySelector('.section-content');
+    const scrollBtn = document.getElementById('scrollBtn');
+
+    function showOnScroll() {
+        const sectionTop = section.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+
+        if (sectionTop < windowHeight - 100) {
+            section.classList.add('visible');
+            window.removeEventListener('scroll', showOnScroll);
+        }
+    }
+
+    window.addEventListener('scroll', showOnScroll);
+
+    // Resetear la animación al hacer clic en el botón
+    scrollBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        // Resetear la animación de la sección
+        section.classList.remove('visible');
+        void section.offsetWidth;  // Forzar reflow para reiniciar la animación
+
+        section.classList.add('visible');  // Activar la animación de nuevo
+
+        // Desplazarse suavemente
+        document.querySelector('#main-section').scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});
+
+</script>
 {% endblock %}
+
+<script>
+    // Animación de scroll para mostrar contenido
+    document.addEventListener('DOMContentLoaded', function () {
+        const section = document.querySelector('.section-content');
+
+        function showOnScroll() {
+            const sectionTop = section.getBoundingClientRect().top;
+            const windowHeight = window.innerHeight;
+
+            if (sectionTop < windowHeight - 100) {
+                section.classList.add('visible');
+                window.removeEventListener('scroll', showOnScroll);
+            }
+        }
+
+        window.addEventListener('scroll', showOnScroll);
+
+        // Scroll suave al hacer clic en el botón
+        const scrollBtn = document.getElementById('scrollBtn');
+        scrollBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector('#main-section').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>

@@ -54,3 +54,34 @@
 .input-field input {
     margin-bottom: 1.2rem;
 }
+
+/* index.html */
+.hero {
+    height: 135vh;
+    background: url('/static/img/udla.png') center/contain no-repeat;
+    background-position: center -3px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    color: black;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+    flex-direction: column;
+    text-align: center;
+    padding-top: 140px; /* Ajusta este valor para bajar el contenido */
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.section-content {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+.section-content.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
