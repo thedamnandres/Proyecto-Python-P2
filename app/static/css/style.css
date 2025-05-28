@@ -57,22 +57,34 @@
 
 /* index.html */
 .hero {
-    height: 135vh;
+    height: 45vh; /* Más pequeña para dejar espacio al texto */
     background: url('/static/img/udla.png') center/contain no-repeat;
-    background-position: center -3px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    color: black;
-    text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
-    flex-direction: column;
-    text-align: center;
-    padding-top: 140px; /* Ajusta este valor para bajar el contenido */
+    background-position: center 0;
+    background-size: 40vw auto; /* Hace la imagen más pequeña y centrada horizontalmente */
+    position: relative;
+    /* Ya no contiene texto, solo la imagen */
 }
 
-.hero h1 {
+.hero-title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
+.hero-title-container h1 {
     font-size: 3rem;
     margin-bottom: 0.5rem;
+    color: rgb(8, 22, 99);
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+}
+
+.hero-title-container h5 {
+    color: rgb(8, 22, 99);
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
 }
 
 .section-content {

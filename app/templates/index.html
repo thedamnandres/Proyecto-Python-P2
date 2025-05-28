@@ -4,11 +4,12 @@
 
 {% block content %}
 
-<div class="hero">
+<div class="hero"></div>
+
+<div class="hero-title-container" id="heroTitle">
     <h1>GRUPO 4</h1>
     <h5>PROYECTO INTEGRADOR - Gestión Parroquial y Catequistas</h5>
-    <a href="#main-section" id="scrollBtn" class="btn-large waves-effect waves-light teal darken-3" style="margin-top: 30px;">Explorar</a>
-
+    <a href="#main-section" id="scrollBtn" class="btn-large waves-effect waves-light red darken-3" style="margin-top: 30px;">Explorar</a>
 </div>
 
 <div id="main-section" class="container section-content">
@@ -119,47 +120,11 @@
 </div>
 
 <script>
-    // Animación de scroll
-document.addEventListener('DOMContentLoaded', function () {
-    const section = document.querySelector('.section-content');
-    const scrollBtn = document.getElementById('scrollBtn');
-
-    function showOnScroll() {
-        const sectionTop = section.getBoundingClientRect().top;
-        const windowHeight = window.innerHeight;
-
-        if (sectionTop < windowHeight - 100) {
-            section.classList.add('visible');
-            window.removeEventListener('scroll', showOnScroll);
-        }
-    }
-
-    window.addEventListener('scroll', showOnScroll);
-
-    // Resetear la animación al hacer clic en el botón
-    scrollBtn.addEventListener('click', function (e) {
-        e.preventDefault();
-        
-        // Resetear la animación de la sección
-        section.classList.remove('visible');
-        void section.offsetWidth;  // Forzar reflow para reiniciar la animación
-
-        section.classList.add('visible');  // Activar la animación de nuevo
-
-        // Desplazarse suavemente
-        document.querySelector('#main-section').scrollIntoView({
-            behavior: 'smooth'
-        });
-    });
-});
-
-</script>
-{% endblock %}
-
-<script>
-    // Animación de scroll para mostrar contenido
+    // Animación de scroll y ocultar el título/botón al explorar
     document.addEventListener('DOMContentLoaded', function () {
         const section = document.querySelector('.section-content');
+        const scrollBtn = document.getElementById('scrollBtn');
+        const heroTitle = document.getElementById('heroTitle');
 
         function showOnScroll() {
             const sectionTop = section.getBoundingClientRect().top;
@@ -167,19 +132,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (sectionTop < windowHeight - 100) {
                 section.classList.add('visible');
+                // Oculta el título y botón al hacer scroll a la sección
+                if (heroTitle) heroTitle.style.display = 'none';
                 window.removeEventListener('scroll', showOnScroll);
             }
         }
 
         window.addEventListener('scroll', showOnScroll);
 
-        // Scroll suave al hacer clic en el botón
-        const scrollBtn = document.getElementById('scrollBtn');
+        // Al hacer clic en el botón, oculta el título y botón y hace scroll suave
         scrollBtn.addEventListener('click', function (e) {
             e.preventDefault();
+            if (heroTitle) heroTitle.style.display = 'none';
+            section.classList.remove('visible');
+            void section.offsetWidth;
+            section.classList.add('visible');
             document.querySelector('#main-section').scrollIntoView({
                 behavior: 'smooth'
             });
         });
     });
 </script>
+{% endblock %}
