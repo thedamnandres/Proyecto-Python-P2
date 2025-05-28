@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Nueva Parroquia{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h3 class="center-align">Nueva Parroquia</h3>
+    <form method="POST" class="col s12">
+        <div class="input-field">
+            <span class="custom-label">Arquidiócesis</span>
+            <select name="arquideosis_id" required class="browser-default">
+                <option value="" disabled {% if not parroquia %}selected{% endif %}>Selecciona una arquidiócesis
+                </option>
+                {% for a in arquideosis %}
+                <option value="{{ a['Arquideosis_Id'] }}" {% if parroquia and
+                    parroquia['Arquideosis_Id']==a['Arquideosis_Id'] %}selected{% endif %}>
+                    {{ a['Nombre'] }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="input-field">
+            <span class="custom-label">Nombre Parroquia</span>
+            <input name="nombre_parroquia" required value="{{ parroquia.Nombre_Parroquia if parroquia else '' }}">
+        </div>
+        <div class="input-field">
+            <span class="custom-label">Párroco</span>
+            <select name="parroco_id" required class="browser-default">
+                <option value="" disabled {% if not parroquia %}selected{% endif %}>Selecciona un párroco (catequista)
+                </option>
+                {% for c in catequistas %}
+                <option value="{{ c['Catequista_Id'] }}" {% if parroquia and parroquia['Parroco_Id']==c['Catequista_Id']
+                    %}selected{% endif %}>
+                    {{ c['Nombres'] }} {{ c['Apellidos'] }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="input-field">
+            <span class="custom-label">Teléfono</span>
+            <input name="telefono" value="{{ parroquia.Telefono if parroquia else '' }}">
+        </div>
+        <div class="input-field">
+            <span class="custom-label">Dirección</span>
+            <input name="direccion" value="{{ parroquia.Direccion if parroquia else '' }}">
+        </div>
+        <label>
+            <input type="checkbox" name="es_principal" {% if parroquia and parroquia.Es_Principal %}checked{% endif
+                %} />
+            <span>¿Es principal?</span>
+        </label>
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+            <button type="submit" class="btn blue">Guardar</button>
+            <a href="{{ url_for('parroquia.listar') }}" class="btn grey lighten-1 black-text">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Parroquias{% endblock %}
+
+{% block content %}
+<h3 class="center-align">Parroquias</h3>
+
+<div class="right-align" style="margin-bottom: 20px;">
+    <a href="{{ url_for('parroquia.nuevo') }}" class="btn blue">
+        <i class="material-icons left">add</i>Nueva Parroquia
+    </a>
+</div>
+
+<table class="striped highlight responsive-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Arquidiocesis</th>
+            <th>Nombre</th>
+            <th>Párroco</th>
+            <th>Teléfono</th>
+            <th>Dirección</th>
+            <th>Principal</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in parroquias %}
+        <tr>
+            <td>{{ p['Parroquia_Id'] }}</td>
+            <td>{{ p['Nombre_Arquideosis'] }}</td>
+            <td>{{ p['Nombre_Parroquia'] }}</td>
+            <td>{{ p['Nombre_Parroco'] }}</td>
+            <td>{{ p['Telefono'] }}</td>
+            <td>{{ p['Direccion'] }}</td>
+            <td>{{ 'Sí' if p['Es_Principal'] else 'No' }}</td>
+            <td>
+                <a href="{{ url_for('parroquia.editar', id=p['Parroquia_Id']) }}" class="btn-small green">
+                    <i class="material-icons left">edit</i>
+                </a>
+                <form method="POST" action="{{ url_for('parroquia.eliminar', id=p['Parroquia_Id']) }}"
+                    style="display:inline;">
+                    <button type="submit" class="btn-small red"
+                        onclick="return confirm('¿Seguro que deseas eliminar?');">
+                        <i class="material-icons left">delete</i>
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
