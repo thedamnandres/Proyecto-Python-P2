@@ -26,17 +26,17 @@
             <td>{{ c.Correo }}</td>
             <td>{{ c.Direccion }}</td>
             <td>
-                <!-- Botón para abrir el modal de editar -->
+                <!-- Boton para abrir el modal de editar -->
                 <a class="btn-small green modal-trigger" href="#modal{{ c.Catequista_Id }}">
                     <i class="material-icons left">edit</i>
                 </a>
-                <!-- Botón para eliminar -->
+                <!-- Boton eliminar -->
                 <form method="POST" action="{{ url_for('catequistas.eliminar', id=c.Catequista_Id) }}" style="display:inline;">
                     <button type="submit" class="btn-small red" onclick="return confirm('¿Seguro que deseas eliminar este catequista?');">
                         <i class="material-icons left">delete</i>
                     </button>
                 </form>
-                <!-- Modal de edición -->
+                <!-- Modal edicion -->
                 <div id="modal{{ c.Catequista_Id }}" class="modal">
                     <div class="modal-content">
                         <h5>Editar Catequista</h5>
