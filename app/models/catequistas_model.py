@@ -18,7 +18,7 @@ class CatequistaModel:
     def listar(self):
         # Obtiene todos los catequistas ejecutando el procedimiento almacenado correspondiente.
         cursor = self.conexion.cursor()
-        cursor.execute("EXEC dbo.sp_listarCatequistas")
+        cursor.execute("EXEC sch_pro.sp_listarCatequistas")
         columns = [column[0] for column in cursor.description]
         resultados = []
         for row in cursor.fetchall():
@@ -29,7 +29,7 @@ class CatequistaModel:
         # Inserta un nuevo catequista en la base de datos.
         cursor = self.conexion.cursor()
         cursor.execute(
-            "EXEC dbo.sp_insertarCatequista ?,?,?,?,?,?",
+            "EXEC sch_pro.sp_insertarCatequista ?,?,?,?,?,?",
             nombres, apellidos, rol, telefono, correo, direccion
         )
         self.conexion.commit()
@@ -38,7 +38,7 @@ class CatequistaModel:
         # Actualiza el telefono y correo de un catequista existente.
         cursor = self.conexion.cursor()
         cursor.execute(
-            "EXEC dbo.sp_actualizarCatequista ?,?,?",
+            "EXEC sch_pro.sp_actualizarCatequista ?,?,?",
             catequista_id, telefono, correo
         )
         self.conexion.commit()
@@ -46,5 +46,5 @@ class CatequistaModel:
     def eliminar(self, catequista_id):
         # Elimina un catequista por su ID.
         cursor = self.conexion.cursor()
-        cursor.execute("EXEC dbo.sp_eliminarCatequista ?", catequista_id)
+        cursor.execute("EXEC sch_pro.sp_eliminarCatequista ?", catequista_id)
         self.conexion.commit()

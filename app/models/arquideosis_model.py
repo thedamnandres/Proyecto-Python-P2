@@ -18,7 +18,7 @@ class ArquideosisModel:
     def listar(self):
         # Obtiene todas las arquidiosis ejecutando el procedimiento almacenado correspondiente.
         cursor = self.conexion.cursor()
-        cursor.execute("EXEC dbo.sp_listarArquideosis")
+        cursor.execute("EXEC sch_pro.sp_listarArquideosis")
         columns = [column[0] for column in cursor.description]
         results = []
         for row in cursor.fetchall():
@@ -28,17 +28,17 @@ class ArquideosisModel:
     def insertar(self, nombre, region):
         # Inserta una nueva arquidiosis en la base de datos.
         cursor = self.conexion.cursor()
-        cursor.execute("EXEC dbo.sp_insertarArquideosis ?,?", nombre, region)
+        cursor.execute("EXEC sch_pro.sp_insertarArquideosis ?,?", nombre, region)
         self.conexion.commit()
 
     def actualizar(self, id, nombre, region):
         # Actualiza el nombre y la region de una arquidiosis existente.
         cursor = self.conexion.cursor()
-        cursor.execute("EXEC dbo.sp_actualizarArquideosis ?,?,?", id, nombre, region)
+        cursor.execute("EXEC sch_pro.sp_actualizarArquideosis ?,?,?", id, nombre, region)
         self.conexion.commit()
 
     def eliminar(self, id):
         # Elimina una arquidiosis por su ID.
         cursor = self.conexion.cursor()
-        cursor.execute("EXEC dbo.sp_eliminarArquideosis ?", id)
+        cursor.execute("EXEC sch_pro.sp_eliminarArquideosis ?", id)
         self.conexion.commit()

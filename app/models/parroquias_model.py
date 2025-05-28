@@ -18,7 +18,7 @@ class ParroquiaModel:
     def listar(self):
         # Obtiene todas las parroquias ejecutando el procedimiento almacenado correspondiente.
         cursor = self.conexion.cursor()
-        cursor.execute("EXEC dbo.sp_listarParroquias")
+        cursor.execute("EXEC sch_pro.sp_listarParroquias")
         columns = [column[0] for column in cursor.description]
         return [dict(zip(columns, row)) for row in cursor.fetchall()]
 
@@ -26,7 +26,7 @@ class ParroquiaModel:
         # Inserta una nueva parroquia en la base de datos.
         cursor = self.conexion.cursor()
         cursor.execute(
-            "EXEC dbo.sp_insertarParroquia ?, ?, ?, ?, ?, ?",
+            "EXEC sch_pro.sp_insertarParroquia ?, ?, ?, ?, ?, ?",
             arquideosis_id, nombre_parroquia, parroco_id, telefono, direccion, es_principal
         )
         self.conexion.commit()
@@ -35,7 +35,7 @@ class ParroquiaModel:
         # Actualiza los datos de una parroquia existente.
         cursor = self.conexion.cursor()
         cursor.execute(
-            "EXEC dbo.sp_actualizarParroquia ?, ?, ?, ?, ?, ?, ?",
+            "EXEC sch_pro.sp_actualizarParroquia ?, ?, ?, ?, ?, ?, ?",
             parroquia_id, nombre_parroquia, parroco_id, telefono, direccion, es_principal, arquideosis_id
         )
         self.conexion.commit()
