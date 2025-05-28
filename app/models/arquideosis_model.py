@@ -38,7 +38,7 @@ class ArquideosisModel:
         self.conexion.commit()
 
     def eliminar(self, id):
-        # Elimina una arquidiosis por su ID.
+        # Elimina una arquidiócesis por su ID.
         cursor = self.conexion.cursor()
         cursor.execute("EXEC sch_pro.sp_eliminarArquideosis ?", id)
         self.conexion.commit()

@@ -9,15 +9,15 @@ def create_app():
     from .controllers.catequistas_controller import catequistas_bp
     app.register_blueprint(catequistas_bp)
     
-    # Importa y registra el blueprint de arquidiócesis
+    # blueprint de arquidiócesis
     from .controllers.arquideosis_controller import arquideosis_bp
     app.register_blueprint(arquideosis_bp)
     
-    # Importa y registra el blueprint de parroquias
+    # blueprint de parroquias
     from .controllers.parroquias_controller import parroquia_bp
     app.register_blueprint(parroquia_bp)
     
-    # Importa y registra las rutas principales (home)
+    # Ruta principal (home)
     from .routes import main_routes
     app.register_blueprint(main_routes)
 

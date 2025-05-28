@@ -40,3 +40,9 @@ class ParroquiaModel:
         )
         self.conexion.commit()
 
+    def eliminar(self, parroquia_id):
+        # Elimina una parroquia por su ID usando el procedimiento almacenado correspondiente.
+        cursor = self.conexion.cursor()
+        print(f"Eliminando parroquia con ID: {parroquia_id}")
+        cursor.execute("EXEC sch_pro.sp_eliminarParroquia ?", parroquia_id)
+        self.conexion.commit()
