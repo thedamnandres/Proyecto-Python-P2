@@ -1,22 +1,24 @@
-import os
 import json
 
 class Config:
-    # Configuración de SQL Server (existente)
-    with open('config.json') as config_file:
+    # Leer configuración desde config.json
+    with open('config.json', encoding='utf-8') as config_file:
         config_data = json.load(config_file)
     
     # SQL Server
-    SERVER = config_data['server']
-    DATABASE = config_data['database']
-    USERNAME = config_data['username']
-    PASSWORD = config_data['password']
-    DRIVER = config_data['driver']
+    SQL_CONFIG = config_data['SQL_SERVER']
+    SERVER = SQL_CONFIG['server']
+    DATABASE = SQL_CONFIG['database']
+    USERNAME = SQL_CONFIG['username']
+    PASSWORD = SQL_CONFIG['password']
+    DRIVER = SQL_CONFIG['driver']
     
-    # MongoDB (nueva configuración)
-    MONGODB_URI = os.environ.get('MONGODB_URI', 'mongodb+srv://thedamnandres:Alone2001@clusterudla01.uv1cb0v.mongodb.net/')
-    MONGODB_DATABASE = os.environ.get('MONGODB_DATABASE', 'ProyectoIntegrador_G4')
+    # MongoDB
+    MONGO_CONFIG = config_data['MONGODB']
+    MONGODB_URI = MONGO_CONFIG['uri']
+    MONGODB_DATABASE = MONGO_CONFIG['database']
     
     # Flask
-    SECRET_KEY = os.environ.get('SECRET_KEY', 'tu_secret_key_aqui')
-    DEBUG = True
+    FLASK_CONFIG = config_data['FLASK']
+    SECRET_KEY = FLASK_CONFIG['secret_key']
+    DEBUG = FLASK_CONFIG['debug']

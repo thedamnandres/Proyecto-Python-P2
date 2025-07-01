@@ -6,12 +6,16 @@ class CatequistaModel:
         # Inicializa la conexion a la base de datos usando la configuracion del config.json
         with open('config.json', 'r') as f:
             config = json.load(f)
+        
+        # Acceder a la configuración de SQL Server
+        sql_config = config['SQL_SERVER']
+        
         connection_string = (
-            f"DRIVER={config['driver']};"
-            f"SERVER={config['server']};"
-            f"DATABASE={config['database']};"
-            f"UID={config['username']};"
-            f"PWD={config['password']}"
+            f"DRIVER={{{sql_config['driver']}}};"
+            f"SERVER={sql_config['server']};"
+            f"DATABASE={sql_config['database']};"
+            f"UID={sql_config['username']};"
+            f"PWD={sql_config['password']}"
         )
         self.conexion = pyodbc.connect(connection_string)
 

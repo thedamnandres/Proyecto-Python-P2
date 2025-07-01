@@ -40,6 +40,8 @@ def listar():
                          search_field=selected_field,
                          search_value=search_value)
 
+
+
 @personas_bp.route('/buscar', methods=['GET', 'POST'])
 def buscar():
     """Endpoint para búsqueda (GET y POST)"""
@@ -81,6 +83,9 @@ def buscar():
                          search_field=selected_field,
                          search_value=search_value)
 
+
+
+
 @personas_bp.route('/nuevo', methods=['GET', 'POST'])
 def nuevo():
     """Crear nueva persona"""
@@ -104,6 +109,9 @@ def nuevo():
     padres = persona_model.obtener_padres()
     return render_template('personas/form.html', madres=madres, padres=padres)
 
+
+
+
 @personas_bp.route('/ver/<persona_id>')
 def ver(persona_id):
     """Ver detalle de persona con información familiar"""
@@ -122,6 +130,8 @@ def ver(persona_id):
     except Exception as e:
         flash(f'Error al obtener la persona: {str(e)}', 'error')
         return redirect(url_for('personas.listar'))
+
+
 
 @personas_bp.route('/editar/<persona_id>', methods=['GET', 'POST'])
 def editar(persona_id):
@@ -152,6 +162,8 @@ def editar(persona_id):
     padres = persona_model.obtener_padres()
     return render_template('personas/form.html', persona=persona, madres=madres, padres=padres)
 
+
+
 @personas_bp.route('/eliminar/<persona_id>', methods=['POST'])
 def eliminar(persona_id):
     """Eliminar persona"""
@@ -165,6 +177,8 @@ def eliminar(persona_id):
         flash(f'Error: {str(e)}', 'error')
     
     return redirect(url_for('personas.listar'))
+
+
 
 @personas_bp.route('/api/personas')
 def api_listar():

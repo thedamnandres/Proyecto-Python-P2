@@ -22,6 +22,7 @@ class PersonaModel:
             print(f"❌ Error conectando a MongoDB: {e}")
             raise
 
+
     def _preparar_datos(self, datos):
         """Preparar y validar datos para inserción/actualización"""
         try:
@@ -74,6 +75,7 @@ class PersonaModel:
             'bautismo': bautismo_data
         }
 
+
     def listar(self, query={}):
         """Obtener todas las personas con filtros opcionales"""
         try:
@@ -89,6 +91,7 @@ class PersonaModel:
         except Exception as e:
             print(f"Error al listar personas: {e}")
             return []
+
 
     def obtener_por_id(self, persona_id):
         """Obtener una persona por ID"""
@@ -107,6 +110,7 @@ class PersonaModel:
             print(f"Error al obtener persona: {e}")
             return None
 
+
     def insertar(self, datos):
         """Insertar nueva persona"""
         try:
@@ -120,6 +124,7 @@ class PersonaModel:
             return None, str(e)
         except Exception as e:
             return None, f'Error al crear persona: {str(e)}'
+
 
     def actualizar(self, persona_id, datos):
         """Actualizar persona existente"""
@@ -150,6 +155,7 @@ class PersonaModel:
             print(f"Error al eliminar persona: {e}")
             return False
 
+
     def buscar_por_nombre(self, nombre):
         """Buscar personas por nombre"""
         try:
@@ -163,6 +169,7 @@ class PersonaModel:
         except Exception as e:
             print(f"Error en búsqueda: {e}")
             return []
+
 
     def buscar_avanzada(self, campo, valor):
         """Búsqueda avanzada por campo específico"""
@@ -182,6 +189,7 @@ class PersonaModel:
         except Exception as e:
             print(f"Error en búsqueda avanzada: {e}")
             return []
+
 
     def _buscar_por_familiar(self, coleccion, valor, campo_id):
         """Método auxiliar para buscar por familiar"""
@@ -225,6 +233,7 @@ class PersonaModel:
         except Exception as e:
             print(f"Error al obtener familia: {e}")
             return None, None, None
+
 
     def obtener_madres(self):
         """Obtener todas las madres disponibles"""

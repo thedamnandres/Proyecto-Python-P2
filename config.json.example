@@ -1,0 +1,17 @@
+{
+  "SQL_SERVER": {
+    "server": "localhost,1433",
+    "database": "TU_BASE_DE_DATOS",
+    "username": "TU_USUARIO",
+    "password": "TU_PASSWORD",
+    "driver": "ODBC Driver 17 for SQL Server"
+  },
+  "MONGODB": {
+    "uri": "mongodb+srv://usuario:password@cluster.mongodb.net/",
+    "database": "TU_BASE_MONGODB"
+  },
+  "FLASK": {
+    "secret_key": "TU_SECRET_KEY_SUPER_SEGURO",
+    "debug": true
+  }
+}

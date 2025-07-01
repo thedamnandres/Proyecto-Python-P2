@@ -1,7 +1,17 @@
 {
-  "server": "localhost,1433",
-  "database": "ProyectoIntegradorG4",
-  "username": "pythonconsultor",
-  "password": "Alone2001",
-  "driver": "{ODBC Driver 17 for SQL Server}"
+  "SQL_SERVER": {
+    "server": "localhost,1433",
+    "database": "ProyectoIntegradorG4",
+    "username": "pythonconsultor",
+    "password": "Alone2001",
+    "driver": "ODBC Driver 17 for SQL Server"
+  },
+  "MONGODB": {
+    "uri": "mongodb+srv://thedamnandres:Alone2001@clusterudla01.uv1cb0v.mongodb.net/",
+    "database": "ProyectoIntegrador_G4"
+  },
+  "FLASK": {
+    "secret_key": "7x!KfG",
+    "debug": true
+  }
 }

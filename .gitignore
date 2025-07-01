@@ -57,3 +57,6 @@ instance/
 
 # PyCharm
 .idea/
+
+# Archivos de configuración con credenciales
+config.json
