@@ -34,6 +34,9 @@
         <li><a href="{{ url_for('parroquia.listar') }}"
                 class="{% if request.endpoint == 'parroquia.listar' %}active{% endif %}"><i
                     class="material-icons">location_city</i>Parroquias</a></li>
+        <li><a href="{{ url_for('personas.listar') }}"
+                class="{% if request.endpoint == 'personas.listar' %}active{% endif %}"><i
+                    class="material-icons">person</i>Personas</a></li>
 
         <!-- Agregar más enlaces aquí para otras entidades -->
     </ul>

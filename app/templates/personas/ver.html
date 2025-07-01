@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block title %}Detalle de Persona{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">
+                        <i class="material-icons left">person</i>
+                        {{ persona.nombres }} {{ persona.apellidos }}
+                    </span>
+                    
+                    <div class="row">
+                        <div class="col s12 m6">
+                            <h6><strong>Información Personal</strong></h6>
+                            <p><strong>Cédula:</strong> {{ persona.cedula }}</p>
+                            <p><strong>Fecha de Nacimiento:</strong> 
+                                {% if persona.fecha_nacimiento %}
+                                    {{ persona.fecha_nacimiento.strftime('%d/%m/%Y') if persona.fecha_nacimiento.__class__.__name__ == 'datetime' else persona.fecha_nacimiento }}
+                                {% else %}
+                                    N/A
+                                {% endif %}
+                            </p>
+                            <p><strong>Lugar de Nacimiento:</strong> {{ persona.lugar_nacimiento or 'N/A' }}</p>
+                            <p><strong>Edad:</strong> {{ persona.edad or 'N/A' }} años</p>
+                            <p><strong>Sexo:</strong> {{ 'Masculino' if persona.sexo == 'M' else 'Femenino' if persona.sexo == 'F' else 'N/A' }}</p>
+                            <p><strong>Rol:</strong> {{ persona.rol or 'N/A' }}</p>
+                        </div>
+                        
+                        <div class="col s12 m6">
+                            <h6><strong>Información de Contacto</strong></h6>
+                            <p><strong>Teléfono:</strong> {{ persona.telefono_domicilio or 'N/A' }}</p>
+                            <p><strong>Dirección:</strong> {{ persona.direccion_domicilio or 'N/A' }}</p>
+                            <p><strong>Contacto de Emergencia:</strong> {{ persona.contacto_emergencia or 'N/A' }}</p>
+                            <p><strong>Parroquia ID:</strong> {{ persona.parroquia_id or 'N/A' }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col s12 m6">
+                            <h6><strong>Información Adicional</strong></h6>
+                            <p><strong>Unidad Educativa:</strong> {{ persona.unidad_educativa or 'N/A' }}</p>
+                            <p><strong>Tipo de Sangre:</strong> {{ persona.tipo_sangre or 'N/A' }}</p>
+                            <p><strong>Alergias:</strong> {{ persona.alergias or 'Ninguna' }}</p>
+                            <p><strong>Consideraciones:</strong> {{ persona.consideraciones or 'Ninguna' }}</p>
+                        </div>
+                        
+                        <div class="col s12 m6">
+                            <h6><strong>Información Familiar</strong></h6>
+                            {% if madre %}
+                                <p><strong>Madre:</strong> {{ madre.nombres }} {{ madre.apellidos }}</p>
+                                <p><strong>Cédula Madre:</strong> {{ madre.cedula }}</p>
+                            {% else %}
+                                <p><strong>Madre:</strong> No registrada</p>
+                            {% endif %}
+                            
+                            {% if padre %}
+                                <p><strong>Padre:</strong> {{ padre.nombres }} {{ padre.apellidos }}</p>
+                                <p><strong>Cédula Padre:</strong> {{ padre.cedula }}</p>
+                            {% else %}
+                                <p><strong>Padre:</strong> No registrado</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    {% if persona.bautismo %}
+                    <div class="row">
+                        <div class="col s12">
+                            <h6><strong>Información de Bautismo</strong></h6>
+                            <div class="row">
+                                <div class="col s12 m6">
+                                    <p><strong>Padrino:</strong> {{ persona.bautismo.nombre_padrino or 'N/A' }}</p>
+                                    <p><strong>Madrina:</strong> {{ persona.bautismo.nombre_madrina or 'N/A' }}</p>
+                                    <p><strong>Lugar de Bautizo:</strong> {{ persona.bautismo.lugar_bautizo or 'N/A' }}</p>
+                                </div>
+                                <div class="col s12 m6">
+                                    <p><strong>Abuelo Materno:</strong> {{ persona.bautismo.nombre_abuelo_materno or 'N/A' }}</p>
+                                    <p><strong>Abuela Materna:</strong> {{ persona.bautismo.nombre_abuela_materno or 'N/A' }}</p>
+                                    <p><strong>Abuelo Paterno:</strong> {{ persona.bautismo.nombre_abuelo_paterno or 'N/A' }}</p>
+                                    <p><strong>Abuela Paterna:</strong> {{ persona.bautismo.nombre_abuela_paterno or 'N/A' }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="card-action">
+                        <a href="{{ url_for('personas.editar', persona_id=persona['_id']) }}" class="btn green">
+                            <i class="material-icons left">edit</i>Editar
+                        </a>
+                        <a href="{{ url_for('personas.listar') }}" class="btn grey lighten-1 black-text">
+                            <i class="material-icons left">arrow_back</i>Volver
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

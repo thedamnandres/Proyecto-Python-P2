@@ -1,0 +1,273 @@
+{% extends "base.html" %}
+
+{% block title %}{% if persona %}Editar Persona{% else %}Nueva Persona{% endif %}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h3 class="center-align">{% if persona %}Editar Persona{% else %}Nueva Persona{% endif %}</h3>
+    
+    <!-- Mostrar mensajes flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="card-panel {{ 'red lighten-4' if category == 'error' else 'green lighten-4' }}">
+                    <span class="{{ 'red-text' if category == 'error' else 'green-text' }}">{{ message }}</span>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    <form method="POST" class="col s12">
+        <div class="row">
+            <!-- Información Personal -->
+            <div class="col s12">
+                <h5>Información Personal</h5>
+            </div>
+            
+            <div class="input-field col s12 m6">
+                <input id="cedula" name="cedula" type="text" maxlength="10" required 
+                       value="{{ persona.cedula if persona else (form_data.cedula if form_data else '') }}"
+                       pattern="[0-9]{10}" title="La cédula debe tener exactamente 10 dígitos">
+                <label for="cedula">Cédula *</label>
+            </div>
+            
+            <div class="input-field col s12 m6">
+                <input id="nombres" name="nombres" type="text" required 
+                       value="{{ persona.nombres if persona else (form_data.nombres if form_data else '') }}">
+                <label for="nombres">Nombres *</label>
+            </div>
+            
+            <div class="input-field col s12 m6">
+                <input id="apellidos" name="apellidos" type="text" required 
+                       value="{{ persona.apellidos if persona else (form_data.apellidos if form_data else '') }}">
+                <label for="apellidos">Apellidos *</label>
+            </div>
+            
+            <div class="input-field col s12 m6">
+                <input id="fecha_nacimiento" name="fecha_nacimiento" type="date" required 
+                       value="{{ persona.fecha_nacimiento if persona else (form_data.fecha_nacimiento if form_data else '') }}">
+                <label for="fecha_nacimiento">Fecha de Nacimiento *</label>
+            </div>
+            
+            <div class="input-field col s12 m6">
+                <input id="lugar_nacimiento" name="lugar_nacimiento" type="text" 
+                       value="{{ persona.lugar_nacimiento if persona else (form_data.lugar_nacimiento if form_data else 'Quito') }}">
+                <label for="lugar_nacimiento">Lugar de Nacimiento</label>
+            </div>
+            
+            <div class="input-field col s12 m6">
+                <input id="edad" name="edad" type="number" min="0" max="120" 
+                       value="{{ persona.edad if persona else (form_data.edad if form_data else '') }}">
+                <label for="edad">Edad</label>
+            </div>
+            
+            <div class="input-field col s12 m6">
+                <select name="sexo" required>
+                    <option value="" disabled {% if not persona and not form_data %}selected{% endif %}>Selecciona el sexo</option>
+                    <option value="M" {% if (persona and persona.sexo == 'M') or (form_data and form_data.sexo == 'M') %}selected{% endif %}>Masculino</option>
+                    <option value="F" {% if (persona and persona.sexo == 'F') or (form_data and form_data.sexo == 'F') %}selected{% endif %}>Femenino</option>
+                </select>
+                <label>Sexo *</label>
+            </div>
+            
+            <div class="input-field col s12 m6">
+                <select name="rol" required>
+                    <option value="" disabled {% if not persona and not form_data %}selected{% endif %}>Selecciona el rol</option>
+                    <option value="Catequizando" {% if (persona and persona.rol == 'Catequizando') or (form_data and form_data.rol == 'Catequizando') %}selected{% endif %}>Catequizando</option>
+                    <option value="Padre/Madre" {% if (persona and persona.rol == 'Padre/Madre') or (form_data and form_data.rol == 'Padre/Madre') %}selected{% endif %}>Padre/Madre</option>
+                    <option value="Tutor" {% if (persona and persona.rol == 'Tutor') or (form_data and form_data.rol == 'Tutor') %}selected{% endif %}>Tutor</option>
+                </select>
+                <label>Rol *</label>
+            </div>
+        </div>
+        
+        <div class="row">
+            <!-- Información de Contacto -->
+            <div class="col s12">
+                <h5>Información de Contacto</h5>
+            </div>
+            
+            <div class="input-field col s12 m6">
+                <input id="telefono_domicilio" name="telefono_domicilio" type="text" 
+                       pattern="[0-9]{7,15}" title="El teléfono debe tener entre 7 y 15 dígitos"
+                       value="{{ persona.telefono_domicilio if persona else (form_data.telefono_domicilio if form_data else '') }}">
+                <label for="telefono_domicilio">Teléfono de Domicilio</label>
+            </div>
+            
+            <div class="input-field col s12 m6">
+                <input id="direccion_domicilio" name="direccion_domicilio" type="text" 
+                       value="{{ persona.direccion_domicilio if persona else (form_data.direccion_domicilio if form_data else '') }}">
+                <label for="direccion_domicilio">Dirección de Domicilio</label>
+            </div>
+            
+            <div class="input-field col s12 m6">
+                <input id="contacto_emergencia" name="contacto_emergencia" type="text" 
+                       value="{{ persona.contacto_emergencia if persona else (form_data.contacto_emergencia if form_data else '') }}">
+                <label for="contacto_emergencia">Contacto de Emergencia</label>
+            </div>
+            
+            <div class="input-field col s12 m6">
+                <input id="parroquia_id" name="parroquia_id" type="text" 
+                       value="{{ persona.parroquia_id if persona else (form_data.parroquia_id if form_data else '') }}">
+                <label for="parroquia_id">ID de Parroquia</label>
+            </div>
+        </div>
+        
+        <div class="row">
+            <!-- Información Adicional -->
+            <div class="col s12">
+                <h5>Información Adicional</h5>
+            </div>
+            
+            <div class="input-field col s12 m6">
+                <input id="unidad_educativa" name="unidad_educativa" type="text" 
+                       value="{{ persona.unidad_educativa if persona else (form_data.unidad_educativa if form_data else '') }}">
+                <label for="unidad_educativa">Unidad Educativa</label>
+            </div>
+            
+            <div class="input-field col s12 m6">
+                <select name="tipo_sangre">
+                    <option value="" {% if not persona and not form_data %}selected{% endif %}>Selecciona tipo de sangre</option>
+                    <option value="A+" {% if (persona and persona.tipo_sangre == 'A+') or (form_data and form_data.tipo_sangre == 'A+') %}selected{% endif %}>A+</option>
+                    <option value="A-" {% if (persona and persona.tipo_sangre == 'A-') or (form_data and form_data.tipo_sangre == 'A-') %}selected{% endif %}>A-</option>
+                    <option value="B+" {% if (persona and persona.tipo_sangre == 'B+') or (form_data and form_data.tipo_sangre == 'B+') %}selected{% endif %}>B+</option>
+                    <option value="B-" {% if (persona and persona.tipo_sangre == 'B-') or (form_data and form_data.tipo_sangre == 'B-') %}selected{% endif %}>B-</option>
+                    <option value="AB+" {% if (persona and persona.tipo_sangre == 'AB+') or (form_data and form_data.tipo_sangre == 'AB+') %}selected{% endif %}>AB+</option>
+                    <option value="AB-" {% if (persona and persona.tipo_sangre == 'AB-') or (form_data and form_data.tipo_sangre == 'AB-') %}selected{% endif %}>AB-</option>
+                    <option value="O+" {% if (persona and persona.tipo_sangre == 'O+') or (form_data and form_data.tipo_sangre == 'O+') %}selected{% endif %}>O+</option>
+                    <option value="O-" {% if (persona and persona.tipo_sangre == 'O-') or (form_data and form_data.tipo_sangre == 'O-') %}selected{% endif %}>O-</option>
+                </select>
+                <label>Tipo de Sangre</label>
+            </div>
+            
+            <div class="input-field col s12 m6">
+                <textarea id="alergias" name="alergias" class="materialize-textarea">{{ persona.alergias if persona else (form_data.alergias if form_data else '') }}</textarea>
+                <label for="alergias">Alergias</label>
+            </div>
+            
+            <div class="input-field col s12 m6">
+                <textarea id="consideraciones" name="consideraciones" class="materialize-textarea">{{ persona.consideraciones if persona else (form_data.consideraciones if form_data else '') }}</textarea>
+                <label for="consideraciones">Consideraciones</label>
+            </div>
+        </div>
+        
+        <div class="row">
+            <!-- Información Familiar -->
+            <div class="col s12">
+                <h5>Información Familiar</h5>
+            </div>
+            
+            <div class="input-field col s12 m6">
+                <select name="madre_id">
+                    <option value="" {% if not persona or not persona.get('madre_id') %}selected{% endif %}>Seleccionar madre</option>
+                    {% if madres %}
+                        {% for madre in madres %}
+                        <option value="{{ madre._id }}" 
+                            {% if persona and persona.get('madre_id') == madre._id %}selected{% endif %}>
+                            {{ madre.nombres }} {{ madre.apellidos }} - {{ madre.cedula }}
+                        </option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+                <label>Madre</label>
+            </div>
+            
+            <div class="input-field col s12 m6">
+                <select name="padre_id">
+                    <option value="" {% if not persona or not persona.get('padre_id') %}selected{% endif %}>Seleccionar padre</option>
+                    {% if padres %}
+                        {% for padre in padres %}
+                        <option value="{{ padre._id }}" 
+                            {% if persona and persona.get('padre_id') == padre._id %}selected{% endif %}>
+                            {{ padre.nombres }} {{ padre.apellidos }} - {{ padre.cedula }}
+                        </option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+                <label>Padre</label>
+            </div>
+        </div>
+        
+        <div class="row">
+            <!-- Información de Bautismo -->
+            <div class="col s12">
+                <h5>Información de Bautismo</h5>
+            </div>
+            
+            <div class="input-field col s12 m6">
+                <input id="nombre_padrino" name="nombre_padrino" type="text" 
+                       value="{{ persona.bautismo.nombre_padrino if persona and persona.bautismo else (form_data.nombre_padrino if form_data else '') }}">
+                <label for="nombre_padrino">Nombre del Padrino</label>
+            </div>
+            
+            <div class="input-field col s12 m6">
+                <input id="nombre_madrina" name="nombre_madrina" type="text" 
+                       value="{{ persona.bautismo.nombre_madrina if persona and persona.bautismo else (form_data.nombre_madrina if form_data else '') }}">
+                <label for="nombre_madrina">Nombre de la Madrina</label>
+            </div>
+            
+            <div class="input-field col s12 m6">
+                <input id="nombre_abuelo_materno" name="nombre_abuelo_materno" type="text" 
+                       value="{{ persona.bautismo.nombre_abuelo_materno if persona and persona.bautismo else (form_data.nombre_abuelo_materno if form_data else '') }}">
+                <label for="nombre_abuelo_materno">Nombre del Abuelo Materno</label>
+            </div>
+            
+            <div class="input-field col s12 m6">
+                <input id="nombre_abuela_materno" name="nombre_abuela_materno" type="text" 
+                       value="{{ persona.bautismo.nombre_abuela_materno if persona and persona.bautismo else (form_data.nombre_abuela_materno if form_data else '') }}">
+                <label for="nombre_abuela_materno">Nombre de la Abuela Materna</label>
+            </div>
+            
+            <div class="input-field col s12 m6">
+                <input id="nombre_abuelo_paterno" name="nombre_abuelo_paterno" type="text" 
+                       value="{{ persona.bautismo.nombre_abuelo_paterno if persona and persona.bautismo else (form_data.nombre_abuelo_paterno if form_data else '') }}">
+                <label for="nombre_abuelo_paterno">Nombre del Abuelo Paterno</label>
+            </div>
+            
+            <div class="input-field col s12 m6">
+                <input id="nombre_abuela_paterno" name="nombre_abuela_paterno" type="text" 
+                       value="{{ persona.bautismo.nombre_abuela_paterno if persona and persona.bautismo else (form_data.nombre_abuela_paterno if form_data else '') }}">
+                <label for="nombre_abuela_paterno">Nombre de la Abuela Paterna</label>
+            </div>
+            
+            <div class="input-field col s12 m6">
+                <input id="fecha_bautizo" name="fecha_bautizo" type="date" 
+                       value="{{ persona.bautismo.fecha_bautizo if persona and persona.bautismo and persona.bautismo.fecha_bautizo else (form_data.fecha_bautizo if form_data else '') }}">
+                <label for="fecha_bautizo">Fecha de Bautizo</label>
+            </div>
+            
+            <div class="input-field col s12 m6">
+                <input id="lugar_bautizo" name="lugar_bautizo" type="text" 
+                       value="{{ persona.bautismo.lugar_bautizo if persona and persona.bautismo else (form_data.lugar_bautizo if form_data else '') }}">
+                <label for="lugar_bautizo">Lugar de Bautizo</label>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col s12 center-align" style="margin-top: 20px;">
+                <button type="submit" class="btn blue waves-effect waves-light">
+                    <i class="material-icons left">save</i>Guardar
+                </button>
+                <a href="{{ url_for('personas.listar') }}" class="btn grey lighten-1 black-text waves-effect waves-light">
+                    <i class="material-icons left">cancel</i>Cancelar
+                </a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar selects
+    var selects = document.querySelectorAll('select');
+    M.FormSelect.init(selects);
+    
+    // Inicializar textareas
+    M.textareaAutoResize(document.getElementById('alergias'));
+    M.textareaAutoResize(document.getElementById('consideraciones'));
+    
+    // Actualizar labels
+    M.updateTextFields();
+});
+</script>
+{% endblock %}

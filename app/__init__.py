@@ -17,6 +17,10 @@ def create_app():
     from .controllers.parroquias_controller import parroquia_bp
     app.register_blueprint(parroquia_bp)
     
+    # blueprint de personas (MongoDB)
+    from .controllers.personas_controller import personas_bp
+    app.register_blueprint(personas_bp)
+    
     # Ruta principal (home)
     from .routes import main_routes
     app.register_blueprint(main_routes)

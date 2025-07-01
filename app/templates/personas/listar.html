@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block title %}Personas{% endblock %}
+
+{% block content %}
+<h3 class="center-align">Gestión de Personas</h3>
+
+<!-- Formulario de búsqueda -->
+<div class="row" style="margin-bottom: 20px;">
+    <div class="col s12">
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">Búsqueda Avanzada</span>
+                <form method="POST" action="{{ url_for('personas.buscar') }}">
+                    <div class="row">
+                        <div class="col s12 m4">
+                            <select name="search_field" class="browser-default">
+                                <option value="" disabled {% if not search_field %}selected{% endif %}>Seleccionar campo</option>
+                                {% for field in search_fields %}
+                                <option value="{{ field }}" {% if search_field == field %}selected{% endif %}>
+                                    {% if field == 'cedula' %}Cédula
+                                    {% elif field == 'nombres' %}Nombres
+                                    {% elif field == 'apellidos' %}Apellidos
+                                    {% elif field == 'parroquia_id' %}ID Parroquia
+                                    {% elif field == 'rol' %}Rol
+                                    {% elif field == 'madre_nombre' %}Nombre de Madre
+                                    {% elif field == 'padre_nombre' %}Nombre de Padre
+                                    {% elif field == 'bautismo.nombre_padrino' %}Padrino
+                                    {% elif field == 'bautismo.nombre_madrina' %}Madrina
+                                    {% elif field == 'bautismo.lugar_bautizo' %}Lugar Bautizo
+                                    {% else %}{{ field }}
+                                    {% endif %}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col s12 m4">
+                            <input type="text" name="search_value" placeholder="Valor a buscar" 
+                                   value="{{ search_value if search_value else '' }}">
+                        </div>
+                        <div class="col s12 m4">
+                            <button type="submit" class="btn blue">
+                                <i class="material-icons left">search</i>Buscar
+                            </button>
+                            <button type="submit" name="mostrar_todo" class="btn grey lighten-1 black-text">
+                                <i class="material-icons left">refresh</i>Mostrar Todo
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="right-align" style="margin-bottom: 20px;">
+    <a href="{{ url_for('personas.nuevo') }}" class="btn blue">
+        <i class="material-icons left">add</i>Nueva Persona
+    </a>
+</div>
+
+{% if personas %}
+<table class="striped highlight responsive-table">
+    <thead>
+        <tr>
+            <th>Cédula</th>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+            <th>Fecha Nacimiento</th>
+            <th>Sexo</th>
+            <th>Rol</th>
+            <th>Teléfono</th>
+            <th>Parroquia ID</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for persona in personas %}
+        <tr>
+            <td>{{ persona['cedula'] }}</td>
+            <td>{{ persona['nombres'] }}</td>
+            <td>{{ persona['apellidos'] }}</td>
+            <td>
+                {% if persona['fecha_nacimiento'] %}
+                    {{ persona['fecha_nacimiento'].strftime('%Y-%m-%d') if persona['fecha_nacimiento'].__class__.__name__ == 'datetime' else persona['fecha_nacimiento'] }}
+                {% else %}
+                    N/A
+                {% endif %}
+            </td>
+            <td>{{ persona['sexo'] }}</td>
+            <td>{{ persona['rol'] }}</td>
+            <td>{{ persona['telefono_domicilio'] }}</td>
+            <td>{{ persona['parroquia_id'] }}</td>
+            <td>
+                <a href="{{ url_for('personas.ver', persona_id=persona['_id']) }}" class="btn-small blue tooltipped" 
+                   data-position="top" data-tooltip="Ver detalle">
+                    <i class="material-icons">visibility</i>
+                </a>
+                <a href="{{ url_for('personas.editar', persona_id=persona['_id']) }}" class="btn-small green tooltipped"
+                   data-position="top" data-tooltip="Editar">
+                    <i class="material-icons">edit</i>
+                </a>
+                <form method="POST" action="{{ url_for('personas.eliminar', persona_id=persona['_id']) }}"
+                    style="display:inline;">
+                    <button type="submit" class="btn-small red tooltipped"
+                        data-position="top" data-tooltip="Eliminar"
+                        onclick="return confirm('¿Seguro que deseas eliminar esta persona?');">
+                        <i class="material-icons">delete</i>
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<div class="center-align" style="margin-top: 50px;">
+    <h5>No se encontraron personas</h5>
+    <p>No hay registros que coincidan con los criterios de búsqueda.</p>
+</div>
+{% endif %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar tooltips
+    var tooltips = document.querySelectorAll('.tooltipped');
+    M.Tooltip.init(tooltips);
+    
+    // Inicializar selects
+    var selects = document.querySelectorAll('select');
+    M.FormSelect.init(selects);
+});
+</script>
+{% endblock %}
