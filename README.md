@@ -63,6 +63,11 @@ Abre el navegador y accede a
 ```bash
 http://localhost:5000
 ```
+
+---
+
+[Aquì el Documento de Proyecto Integrador Fase 7](https://udlaec-my.sharepoint.com/:w:/g/personal/andres_jimenez_tipan_udla_edu_ec/EaX5r22x4QFCo_1QkZTfRtEBjYWXhaWntFagaTZW9HxGqw?e=ZzZiao)
+
 ---
 # 👥 Equipo de desarrollo
 
