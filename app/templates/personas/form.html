@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
-{% block title %}{% if persona %}Editar Persona{% else %}Nueva Persona{% endif %}{% endblock %}
+{% block title %}{% if persona %}Editar Catequizando{% else %}Nuevo Catequizando{% endif %}{% endblock %}
 
 {% block content %}
 <div class="container">
-    <h3 class="center-align">{% if persona %}Editar Persona{% else %}Nueva Persona{% endif %}</h3>
+    <h3 class="center-align">{% if persona %}Editar Catequizando{% else %}Nuevo Catequizando{% endif %}</h3>
     
     <!-- Mostrar mensajes flash -->
     {% with messages = get_flashed_messages(with_categories=true) %}

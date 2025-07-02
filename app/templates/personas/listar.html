@@ -3,7 +3,7 @@
 {% block title %}Personas{% endblock %}
 
 {% block content %}
-<h3 class="center-align">Gestión de Personas</h3>
+<h3 class="center-align">Gestión de Catequizandos</h3>
 
 <!-- Formulario de búsqueda -->
 <div class="row" style="margin-bottom: 20px;">
@@ -22,7 +22,6 @@
                                     {% elif field == 'nombres' %}Nombres
                                     {% elif field == 'apellidos' %}Apellidos
                                     {% elif field == 'parroquia_id' %}ID Parroquia
-                                    {% elif field == 'rol' %}Rol
                                     {% elif field == 'madre_nombre' %}Nombre de Madre
                                     {% elif field == 'padre_nombre' %}Nombre de Padre
                                     {% elif field == 'bautismo.nombre_padrino' %}Padrino
@@ -55,7 +54,7 @@
 
 <div class="right-align" style="margin-bottom: 20px;">
     <a href="{{ url_for('personas.nuevo') }}" class="btn blue">
-        <i class="material-icons left">add</i>Nueva Persona
+        <i class="material-icons left">add</i>Nuevo Catequizando
     </a>
 </div>
 
@@ -68,7 +67,6 @@
             <th>Apellidos</th>
             <th>Fecha Nacimiento</th>
             <th>Sexo</th>
-            <th>Rol</th>
             <th>Teléfono</th>
             <th>Parroquia ID</th>
             <th>Acciones</th>
@@ -88,7 +86,6 @@
                 {% endif %}
             </td>
             <td>{{ persona['sexo'] }}</td>
-            <td>{{ persona['rol'] }}</td>
             <td>{{ persona['telefono_domicilio'] }}</td>
             <td>{{ persona['parroquia_id'] }}</td>
             <td>
@@ -115,7 +112,7 @@
 </table>
 {% else %}
 <div class="center-align" style="margin-top: 50px;">
-    <h5>No se encontraron personas</h5>
+    <h5>No se encontraron catequizandos</h5>
     <p>No hay registros que coincidan con los criterios de búsqueda.</p>
 </div>
 {% endif %}

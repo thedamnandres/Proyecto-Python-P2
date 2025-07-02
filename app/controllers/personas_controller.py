@@ -9,7 +9,7 @@ def listar():
     """Lista todas las personas desde MongoDB con búsqueda avanzada"""
     persona_model = PersonaModel()
     search_fields = [
-        'cedula', 'nombres', 'apellidos', 'parroquia_id', 'rol',
+        'cedula', 'nombres', 'apellidos', 'parroquia_id',
         'madre_nombre', 'padre_nombre',
         'bautismo.nombre_padrino', 'bautismo.nombre_madrina', 
         'bautismo.lugar_bautizo'
@@ -47,7 +47,7 @@ def buscar():
     """Endpoint para búsqueda (GET y POST)"""
     persona_model = PersonaModel()
     search_fields = [
-        'cedula', 'nombres', 'apellidos', 'parroquia_id', 'rol',
+        'cedula', 'nombres', 'apellidos', 'parroquia_id',
         'madre_nombre', 'padre_nombre',
         'bautismo.nombre_padrino', 'bautismo.nombre_madrina', 
         'bautismo.lugar_bautizo'
